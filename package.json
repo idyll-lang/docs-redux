@@ -1,0 +1,23 @@
+{
+  "name": "docs-redux",
+  "version": "1.0.0",
+  "description": "A repo for developing the new docs and editor pages, made with next.js",
+  "main": "index.js",
+  "repository": "https://github.com/idyll-lang/docs-redux.git",
+  "author": "Matthew Conlen <contact@mathisonian.com> (http://mathisonian.com)",
+  "contributors": [
+    "Ted Lorts <tplorts@gmail.com> (http://theodoria.software)"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build && next export",
+    "start": "next start"
+  },
+  "dependencies": {
+    "markdown-in-js": "^1.1.3",
+    "next": "^4.2.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}

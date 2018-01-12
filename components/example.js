@@ -1,5 +1,5 @@
 
-const imageUrl = (url) => /^http/.test(url) ? url : `./static/images/${url}`
+const imageUrl = (url) => /^http/.test(url) ? url : `/static/images/${url}`
 
 
 export default ({ href, label, image }) => (

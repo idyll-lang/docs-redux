@@ -1,0 +1,6 @@
+
+          window.__NEXT_REGISTER_PAGE('/built-in-components', function() {
+            var comp = module.exports=webpackJsonp([16],{195:function(e,t,n){e.exports=n(196)},196:function(e,t,n){"use strict";function u(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var l=n(0),r=u(l),a=n(7),o=u(a),m=n(8),c=u(m),i=n(9),f=u(i),s="/Users/ted/Code/idyll/docs-redux/pages/built-in-components.js?entry",d=function(){return(0,c.default)(function(e){return r.default.createElement("div",{className:"_markdown_",__source:{fileName:s,lineNumber:1}},r.default.createElement(e.h1,{__source:{fileName:s,lineNumber:1}},"Built-In Components"))})};t.default=function(){return r.default.createElement(f.default,{__source:{fileName:s,lineNumber:12}},r.default.createElement(d,{__source:{fileName:s,lineNumber:13}}),r.default.createElement("p",{__source:{fileName:s,lineNumber:14}},"Continue to"," ",r.default.createElement(o.default,{href:"/npm-components",__source:{fileName:s,lineNumber:16}},r.default.createElement("a",{__source:{fileName:s,lineNumber:16}},"npm components")),"."))}}},[195]);
+            return { page: comp.default }
+          })
+        

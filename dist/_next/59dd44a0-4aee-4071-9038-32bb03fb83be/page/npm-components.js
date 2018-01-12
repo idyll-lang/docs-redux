@@ -1,0 +1,6 @@
+
+          window.__NEXT_REGISTER_PAGE('/npm-components', function() {
+            var comp = module.exports=webpackJsonp([8],{246:function(e,t,n){e.exports=n(247)},247:function(e,t,n){"use strict";function u(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var l=n(0),r=u(l),o=n(7),a=u(o),m=n(8),c=u(m),f=n(9),s=u(f),i="/Users/ted/Code/idyll/docs-redux/pages/npm-components.js?entry",d=function(){return(0,c.default)(function(e){return r.default.createElement("div",{className:"_markdown_",__source:{fileName:i,lineNumber:1}},r.default.createElement(e.h1,{__source:{fileName:i,lineNumber:1}},"Installing Components from NPM"))})};t.default=function(){return r.default.createElement(s.default,{__source:{fileName:i,lineNumber:12}},r.default.createElement(d,{__source:{fileName:i,lineNumber:13}}),r.default.createElement("p",{__source:{fileName:i,lineNumber:14}},"Continue to"," ",r.default.createElement(a.default,{href:"/custom-components",__source:{fileName:i,lineNumber:16}},r.default.createElement("a",{__source:{fileName:i,lineNumber:16}},"custom components")),"."))}}},[246]);
+            return { page: comp.default }
+          })
+        

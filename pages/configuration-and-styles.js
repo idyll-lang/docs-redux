@@ -41,7 +41,7 @@ The \`centered\` layout puts your content in the center of the page and is mobil
 #### Blog
 
 This is the default layout. The \`blog\` layout is fairly traditional article layout with room in the margin to
-put notes and other callouts. See https://mathisonian.github.io/trig/etymology/ for an example of this layout.
+put notes and other callouts. See <https://mathisonian.github.io/trig/etymology/> for an example of this layout.
 
 #### None
 
@@ -56,24 +56,18 @@ This is the default theme, it uses CSS that resembles the styles in GitHub READM
 
 #### Idyll
 
-This theme uses custom styles that go along with Idyll's look and feel. See https://mathisonian.github.io/trig/etymology/ for an example of this style.
+This theme uses custom styles that go along with Idyll's look and feel. See <https://mathisonian.github.io/trig/etymology/> for an example of this style.
 
 #### Tufte
 
-The \`Tufte\` theme uses styles from https://edwardtufte.github.io/tufte-css/.
+The \`Tufte\` theme uses styles from <https://edwardtufte.github.io/tufte-css/>.
 
 ![tufte](static/images/tufte.png)
+`
 
-## Using Idyll as an API
 
-You can use Idyll directly from JavaScript as well; this is useful if you want to build on
-top of Idyll. For example, you could make a static blog engine that uses Idyll to compile the
-blog posts.
-
-### Example
-
-\`\`\`js
-var Idyll = require('idyll');
+const ExampleCodeA = 
+`var Idyll = require('idyll');
 
 var idyll = Idyll({
   inputFile: 'my-file.idl'
@@ -88,26 +82,45 @@ var idyll = Idyll({
 idyll.build()
      .on('update', () => {}) // the compilation finished.
      .on('error', () => {}) // there was an error
-\`\`\`
+`
 
-If you pass \`live: true\` to Idyll, it will continue to watch the input files for changes,
- and will emit the update event each time that the output is rebuilt.
 
-You can also compile an input string directly instead of a file:
-
-\`\`\`js
-var idyll = Idyll();
+const ExampleCodeB = 
+`var idyll = Idyll();
 
 idyll
   .build('# My Idyll markup')
   .on('update', () => { console.log('Finished.') });
-\`\`\`
 `
+
 
 
 export default () => (
   <Layout>
     <Content />
+
+    <section>
+      <h2>Using Idyll as an API</h2>
+      <p>
+        You can use Idyll directly from JavaScript as well; this is useful if you want to build on top of Idyll.
+        For example, you could make a static blog engine that uses Idyll to compile the blog posts.
+      </p>
+      <h3>Example</h3>
+      <pre>
+        <code className="lang-js">{ ExampleCodeA }</code>
+      </pre>
+      <p>
+        If you pass <code>live: true</code> to Idyll, it will continue to watch the input files for changes,
+        and will emit the update event each time that the output is rebuilt.
+      </p>
+      <p>
+        You can also compile an input string directly instead of a file:
+      </p>
+      <pre>
+        <code className="lang-js">{ ExampleCodeB }</code>
+      </pre>
+    </section>
+
     <p>
       Continue to the next section to learn about{' '}
       <Link href="/components-overview"><a>Idyll components</a></Link>.

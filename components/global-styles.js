@@ -12,7 +12,12 @@ body {
   color: rgb(80, 80, 80);
 }
 
-._markdown_ img {
+figure {
+  margin: 0;
+}
+
+._markdown_ img,
+figure img {
   max-width: 75%;
   margin: 60px auto;
   display: block;

@@ -3,9 +3,82 @@ import markdown from 'markdown-in-js'
 import Layout from '../components/layout'
 
 
+
+class BaseSection {
+  constructor(obj) {
+    const [ key ] = Object.keys(obj)
+    this.key = key
+    this.title = key.split(/([A-Z][a-z]+)/).join(' ').trim()
+    this.titleId = this.title.replace(' ', '-')
+  }
+}
+
+class Section extends BaseSection {
+  constructor(obj) {
+    super(obj)
+    this.subsections = obj[this.key].map(sub => new Subsection(sub, this))
+  }
+
+  render() {
+    return (
+      <section id={ this.titleId } key={ this.key }>
+        <h2>{ this.title }</h2>
+        { this.subsections.map(sub => sub.render()) }
+      </section>
+    )
+  }
+
+  renderContents() {
+    return (
+      <li key={ this.key }>
+        <a href={ `#${this.titleId}` }>{ this.title }</a> - asdf
+        <ul>
+          { this.subsections.map(sub => sub.renderContents()) }
+        </ul>
+      </li>
+    )
+  }
+}
+
+class Subsection extends BaseSection {
+  constructor(obj, parent) {
+    super(obj)
+    this.parent = parent
+    this.titleId = `${parent.titleId}-${this.titleId}`
+    this.Content = obj[this.key]
+  }
+
+  render() {
+    const { Content } = this
+    return (
+      <div id={ this.titleId } key={ this.key }>
+        <h3>{ this.title }</h3>
+        <Content />
+      </div>
+    )
+  }
+
+  renderContents() {
+    return (
+      <li key={ this.key }>
+        <a href={ `#${this.titleId}` }>{ this.title }</a>
+      </li>
+    )
+  }
+}
+
+
 const Aside = () => (
   <div>
-    asdf
+    <p>
+      Content inside of an aside component will be displayed in the margin of your document.
+      For example, the{' '}
+      <a href="https://mathisonian.github.io/consumer-complaints/">consumer complaints</a>
+      {' '}article uses the aside component to display a small chart and caption:
+    </p>
+    <figure>
+      <img src="static/images/aside.png" alt="aside" />
+    </figure>
   </div>
 )
 const Feature = () => (
@@ -181,6 +254,8 @@ const Contents = [
   ]},
 ]
 
+const sections = Contents.map(sectionObj => new Section(sectionObj))
+
 
 export default () => (
   <Layout>
@@ -190,11 +265,11 @@ export default () => (
     </p>
     <div className="page-contents">
       <ul>
-        { Contents.map(sectionObj => renderSectionContents(sectionObj)) }
+        { sections.map(s => s.renderContents()) }
       </ul>
     </div>
 
-    { Contents.map(sectionObj => renderSection(sectionObj)) }
+    { sections.map(s => s.render()) }
 
     <p>
       Continue to{' '}
@@ -202,68 +277,3 @@ export default () => (
     </p>
   </Layout>
 )
-
-
-const displayTitleForKey = key => key.split(/(?=[A-Z])/).join(' ')
-
-
-
-// TODO: there's gotta be a way to avoid the repetition in the following four functions
-
-
-const renderSection = sectionObj => {
-  const [ key ] = Object.keys(sectionObj)
-  const subsections = sectionObj[key]
-  const title = displayTitleForKey(key)
-  const titleId = title.replace(' ', '-')
-  return (
-    <section id={ titleId }>
-      <h2>{ title }</h2>
-      { subsections.map(sub => renderSubsection(titleId, sub)) }
-    </section>
-  )
-}
-
-
-const renderSectionContents = sectionObj => {
-  const [ key ] = Object.keys(sectionObj)
-  const subsections = sectionObj[key]
-  const title = displayTitleForKey(key)
-  const titleId = title.replace(' ', '-')
-  return (
-    <li>
-      <a href={ `#${titleId}` }>{ title }</a> - asdf
-      <ul>
-        { subsections.map(sub => renderSubsectionContents(titleId, sub)) }
-      </ul>
-    </li>
-  )
-}
-
-
-const renderSubsection = (sectionId, subsectionObj) => {
-  const [ key ] = Object.keys(subsectionObj)
-  const SubsectionContent = subsectionObj[key]
-  const title = displayTitleForKey(key)
-  const titleId = `${sectionId}-${title.replace(' ', '-')}`
-  return (
-    <div id={ titleId }>
-      <h3>{ title }</h3>
-      <SubsectionContent />
-    </div>
-  )
-}
-
-
-const renderSubsectionContents = (sectionId, subsectionObj) => {
-  const [ key ] = Object.keys(subsectionObj)
-  const title = displayTitleForKey(key)
-  const titleId = `${sectionId}-${title.replace(' ', '-')}`
-  return (
-    <li>
-      <a href={ `#${titleId}` }>{ title }</a>
-    </li>
-  )
-}
-
-

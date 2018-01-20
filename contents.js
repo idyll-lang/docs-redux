@@ -33,7 +33,7 @@ const Contents = [
   },
 ]
 
-const hrefFromName = name => name.trim().toLowerCase().replace(/\s+/g, '-')
+const hrefFromName = name => (name.trim() || '').toLowerCase().replace(/\s+/g, '-')
 
 module.exports = {
   Contents,

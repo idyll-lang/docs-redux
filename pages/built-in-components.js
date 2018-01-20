@@ -1,260 +1,164 @@
+import React from 'react'
 import NextLink from 'next/link'
-import markdown from 'markdown-in-js'
+import showdown from 'showdown'
+import Parser from 'html-react-parser';
 import Layout from '../components/layout'
 
+import Contents from '../idyll-components/contents.yaml'
+// import * as Descriptions from '../idyll-components/descriptions'
+import * as Examples from '../idyll-components/examples'
+
+showdown.setFlavor('github')
+
+const mdConverter = new showdown.Converter()
+console.log(Contents)
+
+function md2html(md, naked = false) {
+  if (!md) return md
+  let html = mdConverter.makeHtml(md)
+  if (naked) html = html.replace(/^<p>/, '').replace(/<\/p>$/, '')
+  return Parser(html)
+}
+
+function md2htmlNaked(md) {
+  return md2html(md, true)
+}
+
+const titleFromName = name => name.split(/([A-Z][a-z]+)/).join(' ').trim()
+const titleHrefFromTitle = title => title.replace(' ', '-')
 
 
 class BaseSection {
   constructor(obj) {
-    const [ key ] = Object.keys(obj)
-    this.key = key
-    this.title = key.split(/([A-Z][a-z]+)/).join(' ').trim()
-    this.titleId = this.title.replace(' ', '-')
+    this.name = Object.keys(obj)[0]
+    this.title = titleFromName(this.name)
+  }
+
+  get hrefId() {
+    return this.name
   }
 }
 
-class Section extends BaseSection {
+class IdyllComponentGroup extends BaseSection {
   constructor(obj) {
     super(obj)
-    this.subsections = obj[this.key].map(sub => new Subsection(sub, this))
-  }
-
-  render() {
-    return (
-      <section id={ this.titleId } key={ this.key }>
-        <h2>{ this.title }</h2>
-        { this.subsections.map(sub => sub.render()) }
-      </section>
-    )
+    const { description, components } = obj[this.name]
+    this.description = description
+    this.components = components.map(sub => new IdyllComponentInfo(sub, this))
   }
 
   renderContents() {
     return (
-      <li key={ this.key }>
-        <a href={ `#${this.titleId}` }>{ this.title }</a> - asdf
+      <li key={ this.name }>
+        <a href={ `#${this.hrefId}` }>{ this.title }</a>
+        {' '}&mdash;{' '}
+        { md2html(this.description) }
         <ul>
-          { this.subsections.map(sub => sub.renderContents()) }
+          { this.components.map(comp => comp.renderContents()) }
         </ul>
       </li>
     )
   }
 }
 
-class Subsection extends BaseSection {
+class IdyllComponentInfo extends BaseSection {
   constructor(obj, parent) {
     super(obj)
     this.parent = parent
-    this.titleId = `${parent.titleId}-${this.titleId}`
-    this.Content = obj[this.key]
+    Object.assign(this, obj[this.name])
+    // this.Description = this.description 
+    //   ? (() => md2html(this.description))
+    //   : (Descriptions[this.name] || (() => null))
+    this.Description = () => md2html(this.description) || null
+    this.exampleCode = Examples[this.name]
   }
 
-  render() {
-    const { Content } = this
-    return (
-      <div id={ this.titleId } key={ this.key }>
-        <h3>{ this.title }</h3>
-        <Content />
-      </div>
-    )
+  get hrefId() {
+    return `${this.parent.hrefId}-${super.hrefId}`
   }
 
   renderContents() {
     return (
-      <li key={ this.key }>
-        <a href={ `#${this.titleId}` }>{ this.title }</a>
+      <li key={ this.name }>
+        <a href={ `#${this.hrefId}` }>{ this.title }</a>
       </li>
     )
   }
 }
 
+class IdyllComponentDoc extends React.Component {
+  render() {
+    const {
+      name,
+      title,
+      hrefId,
+      Description,
+      image,
+      exampleCode,
+      idyllProps,
+    } = this.props.component
 
-const Aside = () => (
-  <div>
-    <p>
-      Content inside of an aside component will be displayed in the margin of your document.
-      For example, the{' '}
-      <a href="https://mathisonian.github.io/consumer-complaints/">consumer complaints</a>
-      {' '}article uses the aside component to display a small chart and caption:
-    </p>
-    <figure>
-      <img src="static/images/aside.png" alt="aside" />
-    </figure>
-  </div>
-)
-const Feature = () => (
-  <div>
-    asdf
-  </div>
-)
-const Fixed = () => (
-  <div>
-    asdf
-  </div>
-)
-const Float = () => (
-  <div>
-    asdf
-  </div>
-)
-const FullScreen = () => (
-  <div>
-    asdf
-  </div>
-)
-const Inline = () => (
-  <div>
-    asdf
-  </div>
-)
-const Panel = () => (
-  <div>
-    asdf
-  </div>
-)
-const Waypoint = () => (
-  <div>
-    asdf
-  </div>
-)
-const Action = () => (
-  <div>
-    asdf
-  </div>
-)
-const Boolean = () => (
-  <div>
-    asdf
-  </div>
-)
-const Button = () => (
-  <div>
-    asdf
-  </div>
-)
-const Chart = () => (
-  <div>
-    asdf
-  </div>
-)
-const Display = () => (
-  <div>
-    asdf
-  </div>
-)
-const Dynamic = () => (
-  <div>
-    asdf
-  </div>
-)
-const Equation = () => (
-  <div>
-    asdf
-  </div>
-)
-const Gist = () => (
-  <div>
-    asdf
-  </div>
-)
-const Header = () => (
-  <div>
-    asdf
-  </div>
-)
-const Link = () => (
-  <div>
-    asdf
-  </div>
-)
-const Radio = () => (
-  <div>
-    asdf
-  </div>
-)
-const Range = () => (
-  <div>
-    asdf
-  </div>
-)
-const Select = () => (
-  <div>
-    asdf
-  </div>
-)
-const Slideshow = () => (
-  <div>
-    asdf
-  </div>
-)
-const SVG = () => (
-  <div>
-    asdf
-  </div>
-)
-const Table = () => (
-  <div>
-    asdf
-  </div>
-)
-const TextInput = () => (
-  <div>
-    asdf
-  </div>
-)
-const Analytics = () => (
-  <div>
-    asdf
-  </div>
-)
-const Meta = () => (
-  <div>
-    asdf
-  </div>
-)
-const Preload = () => (
-  <div>
-    asdf
-  </div>
-)
+    return (
+      <div id={ hrefId } key={ name }>
+        <h3>{ title }</h3>
+        {/*{ md2html(this.description) }*/}
+        <Description />
+        { image &&
+          <figure>
+            <img src={ `static/images/${image}` } alt={ title } />
+          </figure>
+        }
+        { exampleCode &&
+          <pre>
+            <code>{ exampleCode }</code>
+          </pre>
+        }
+        { idyllProps && idyllProps.length > 0 &&
+          <div>
+            <h4>Props</h4>
+            <ul>
+              { idyllProps.map(p => this.renderPropBullet(p)) }
+            </ul>
+          </div>
+        }
+      </div>
+    )
+  }
 
-const Contents = [
-  { Layout: [
-    { Aside },
-    { Feature },
-    { Fixed },
-    { Float },
-    { FullScreen },
-    { Inline },
-    { Panel },
-    { Waypoint },
-  ]},
-  { Presentation: [
-    { Action },
-    { Boolean },
-    { Button },
-    { Chart },
-    { Display },
-    { Dynamic },
-    { Equation },
-    { Gist },
-    { Header },
-    { Link },
-    { Radio },
-    { Range },
-    { Select },
-    { Slideshow },
-    { SVG },
-    { Table },
-    { TextInput },
-  ]},
-  { Helpers: [
-    { Analytics },
-    { Meta },
-    { Preload },
-  ]},
-]
+  renderPropBullet(prop) {
+    const [ name ] = Object.keys(prop)
+    const description = prop[name]
+    return (
+      <li key={ name } className="idyll-prop">
+        <code>{ name }</code>
+        {' '}&mdash;{' '}
+        <span>{ md2html(description) }</span>
+      </li>
+    )
+  }
+}
 
-const sections = Contents.map(sectionObj => new Section(sectionObj))
+class IdyllComponentSection extends React.Component {
+  render() {
+    const {
+      name,
+      title,
+      hrefId,
+      components,
+    } = this.props.group
+
+    return (
+      <section id={ hrefId } key={ name }>
+        <h2>{ title }</h2>
+        { components.map(comp => <IdyllComponentDoc component={ comp } key={ comp.name } />) }
+      </section>
+    )
+  }
+}
+
+
+const groups = Contents.map(groupObj => new IdyllComponentGroup(groupObj))
+
 
 
 export default () => (
@@ -265,11 +169,11 @@ export default () => (
     </p>
     <div className="page-contents">
       <ul>
-        { sections.map(s => s.renderContents()) }
+        { groups.map(g => g.renderContents()) }
       </ul>
     </div>
 
-    { sections.map(s => s.render()) }
+    { groups.map(g => <IdyllComponentSection group={ g } key={ g.name } />) }
 
     <p>
       Continue to{' '}

@@ -66,4 +66,8 @@ pre code:before,
 pre code:after {
   content: normal;
 }
+
+li p {
+  display: inline;
+}
 `}</style>

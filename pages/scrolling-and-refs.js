@@ -66,8 +66,8 @@ Each ref object has the following properties:
 `)
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <div dangerouslySetInnerHTML={ {__html: Content()} } />
     <p>
       You've learned all about Idyll! All that's left is{' '}

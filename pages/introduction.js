@@ -92,14 +92,14 @@ const Examples = () => (
   <section>
     <h3>Examples</h3>
     {
-      exampleGroups.map(eg => <ExampleGroup {...eg} key={ eg.title } />)
+      exampleGroups.map(eg => <ExampleGroup { ...eg } key={ eg.title } />)
     }
   </section>
 )
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Intro />
     <Examples />
     <p>

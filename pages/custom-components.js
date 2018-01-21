@@ -108,8 +108,8 @@ component path, specify it with the \`--components\` option, e.g.
 \`idyll index.idl --css styles.css --components custom/component/path/\`.
 `)
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <div dangerouslySetInnerHTML={ {__html: Content()} } />
     <p>
       Continue to learn how to use{' '}

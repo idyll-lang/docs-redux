@@ -38,8 +38,8 @@ this will compile files and place them inside of the \`build/\` folder.
 `
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
   </Layout>
 )

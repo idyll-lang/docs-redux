@@ -32,8 +32,8 @@ Components are resolved according to following algorithm:
 `
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
     <p>
       Continue to read about{' '}

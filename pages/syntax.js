@@ -183,8 +183,8 @@ converted to a JSON object.
 
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
     <p>
       Continue to the next section to learn about{' '}

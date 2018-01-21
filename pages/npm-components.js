@@ -26,8 +26,8 @@ This could then be used in your markup as
 `
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
     <p>
       Continue to{' '}

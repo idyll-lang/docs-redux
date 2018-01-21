@@ -8,8 +8,8 @@ const Content = () => markdown`
 `
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
   </Layout>
 )

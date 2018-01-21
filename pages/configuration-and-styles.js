@@ -95,8 +95,8 @@ idyll
 
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
 
     <section>

@@ -161,8 +161,8 @@ const groups = Contents.map(groupObj => new IdyllComponentGroup(groupObj))
 
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <h1>Built-In Components</h1>
     <p>
       Idyll ships with a handful of components that handle common tasks. They are broken into three categories:

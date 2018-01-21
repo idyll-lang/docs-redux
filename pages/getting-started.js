@@ -77,8 +77,8 @@ If you want to configure the paths or build steps that Idyll uses, open \`packag
 `
 
 
-export default () => (
-  <Layout>
+export default ({ url }) => (
+  <Layout url={ url }>
     <Content />
     <p>
       Continue to the <Link href="/syntax"><a>next section</a></Link> to learn how to use Idyll's syntax.

@@ -1,5 +1,4 @@
-module.exports = `
-# Welcome to Idyll
+module.exports = `# Welcome to Idyll
 ### Idyll is a language for creating interactive documents on the web.
 
 This document is being rendered from **Idyll markup**. If you've used [markdown](https://daringfireball.net/projects/markdown/), Idyll should look pretty familiar, but it has some additional features. Write text in the box on the left and the output on the right will automatically update.

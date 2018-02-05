@@ -1,5 +1,8 @@
 
-export default `
+/* styles.js */
+import css from 'styled-jsx/css'
+
+export default css`
 /**
  * Draft v0.10.1
  *

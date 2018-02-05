@@ -4,14 +4,23 @@ import { Editor, EditorState, ContentState } from 'draft-js';
 class EditorComponent extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.getEditor = this.getEditor.bind(this);
     this.state = {
       editorState: EditorState.createWithContent(ContentState.createFromText(props.initialValue))
     }
-    this.handleChange = this.handleChange.bind(this);
+  }
+
+  getEditor(editorState) {
+    return <Editor editorState={editorState} onChange={this.handleChange} />;
+  }
+
+  componentDidMount() {
+    this.setState({editor: this.getEditor(this.state.editorState)});
   }
 
   handleChange(editorState) {
-    this.setState({ editorState });
+    this.setState({ editor: this.getEditor(editorState) });
     this.props.onChange(editorState.getCurrentContent().getPlainText());
   }
 
@@ -20,11 +29,10 @@ class EditorComponent extends React.PureComponent {
   }
 
   render() {
-    const { handleChange } = this;
-    const { editorState } = this.state;
+    const { editor } = this.state;
     return (
       <div className={"editor"} >
-        <Editor editorState={editorState} onChange={handleChange} />
+        {editor}
       </div>
     );
   }

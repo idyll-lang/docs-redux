@@ -12,7 +12,7 @@ class App extends React.PureComponent {
     super(props);
     this.state = {
       idyllMarkup: initialValue,
-      idyllHash: '',
+      idyllHash: hashCode(initialValue.trim()),
       error: null,
       ast: compile(initialValue)
     }
@@ -44,7 +44,7 @@ class App extends React.PureComponent {
 
     return (
       <div className={"container"}>
-        {/* <Editor initialValue={idyllMarkup} onChange={this.handleChange} /> */}
+        <Editor initialValue={initialValue} onChange={this.handleChange} />
         <Renderer ast={ast} idyllMarkup={idyllMarkup} idyllHash={idyllHash} />
         {
           error && (

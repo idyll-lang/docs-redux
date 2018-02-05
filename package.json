@@ -10,13 +10,17 @@
   ],
   "license": "MIT",
   "scripts": {
-    "dev": "BABEL_DISABLE_CACHE=1 next",
+    "dev": "AWS_PROFILE=idyll BABEL_DISABLE_CACHE=1 next",
     "build": "next build",
     "export": "next export -o dist",
     "start": "next start"
   },
   "dependencies": {
+    "draft-js": "^0.10.5",
     "html-react-parser": "^0.4.1",
+    "idyll-compiler": "^2.0.10",
+    "idyll-components": "^2.0.0",
+    "idyll-document": "^2.1.0",
     "markdown-in-js": "^1.1.3",
     "next": "^4.2.2",
     "react": "^16.2.0",

@@ -4,47 +4,28 @@ import IdyllRenderer from './renderer'
 import compile from 'idyll-compiler'
 import { hashCode } from './utils'
 import styles from './styles'
-// import exampleMarkup from './initial'
-
 
 
 class LiveIdyllEditor extends React.PureComponent {
   constructor(props) {
     super(props)
-    this.state = this.stateObjectForInitialMarkup('')
+    const { markup } = props
+    this.state = {
+      ...this.stateObjectForMarkup(markup),
+      initialMarkup: markup,
+    }
   }
 
   stateObjectForMarkup = (idyllMarkup, hash = null) => ({
-    idyllHash: hash || hashCode(idyllMarkup.trim()),
+    idyllHash: hash || hashCode(idyllMarkup),
     error: null,
     ast: compile(idyllMarkup),
   })
 
-  stateObjectForInitialMarkup = (markup) => ({
-    ...this.stateObjectForMarkup(markup),
-    initialMarkup: markup,
-  })
-
-  componentDidMount() {
-    this.setContent(this.props.markup, true)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { markup } = nextProps
-    if (markup) {
-      this.setContent(markup, true)
-    }
-  }
-
-  setContent(value, isReset = false) {
+  setContent(value) {
     try {
-      if (isReset) {
-        this.setState(this.stateObjectForInitialMarkup(value))
-      } else {
-        const hash = hashCode(value.trim())
-        if (hash === this.state.idyllHash) {
-          return
-        }
+      const hash = hashCode(value)
+      if (hash !== this.state.idyllHash) {
         this.setState(this.stateObjectForMarkup(value, hash))
       }
     } catch (e) {

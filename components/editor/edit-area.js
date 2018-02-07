@@ -11,14 +11,8 @@ class IdyllEditArea extends React.Component {
   }
 
   componentDidMount() {
+    // Prevents the editor from rendering server-side
     this.setState({ shouldRenderEditor: true })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { initialContent } = nextProps
-    if (initialContent) {
-      this.setState({ editorState: this.createEditorState(initialContent) })
-    }
   }
 
   createEditorState(text) {

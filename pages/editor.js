@@ -1,6 +1,7 @@
 import React from 'react'
 import LiveIdyllEditor from '../components/editor'
 import exampleMarkup from '../components/editor/initial'
+import { hashCode } from '../components/editor/utils'
 
 const grey = x => `rgb(${x}, ${x}, ${x})`
 
@@ -11,15 +12,21 @@ class EditorPage extends React.PureComponent {
     super(props)
     this.state = {
       inMarkup: exampleMarkup,
-      outMarkup: exampleMarkup,
     }
+    this.outMarkup = exampleMarkup
   }
 
-  setInMarkup = inMarkup => this.setState({ inMarkup })
-  setOutMarkup = outMarkup => this.setState({ outMarkup })
+  setOutMarkup = outMarkup => (this.outMarkup = outMarkup)
+
+  setInMarkup(inMarkup) {
+    this.setState({
+      inMarkup,
+      inMarkupHash: hashCode(inMarkup),
+    })
+  }
 
   savedContent = () => (window.localStorage.getItem('editorContent') || '')
-  save = () => window.localStorage.setItem('editorContent', this.state.outMarkup)
+  save = () => window.localStorage.setItem('editorContent', this.outMarkup)
 
   loadFromSaved = () => this.setInMarkup(this.savedContent())
   insertExample = () => this.setInMarkup(exampleMarkup)
@@ -38,7 +45,11 @@ class EditorPage extends React.PureComponent {
             Save
           </button>
         </nav>
-        <LiveIdyllEditor markup={ this.state.inMarkup } onChange={ this.setOutMarkup } />
+        <LiveIdyllEditor
+          markup={ this.state.inMarkup }
+          onChange={ this.setOutMarkup }
+          key={ this.state.inMarkupHash }
+        />
 
         <style jsx>{`
           .editor-page {

@@ -280,56 +280,6 @@ html, body {
   padding: 0;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  overflow: auto;
-}
-
-
-/* Tufte CSS styles */
-.renderer {
-  font-size: 13px;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-body {
-  /*background-color: #fffff8;*/
-}
-
-.renderer-container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 6.25%;
-    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-    background-color: #fffff8;
-    color: #111;
-    max-width: 1400px;
-    counter-reset: sidenote-counter; }
-
-
-
-.editor {
-  flex-grow: 1;
-  width: 33%;
-  max-height: 100vh;
-  overflow-y: auto;
-  border-right: solid 2px #ddd;
-  padding: 10px;
-  font-size: 17px;
-  line-height: 26px;
-  border-left: solid 10px #ddd;
-}
-
-
-.renderer {
-  width: 66%;
-  background: #fffff8;
-  padding: 15px;
-}
-
 
 .idyll-root {
   /*padding: 10px;*/
@@ -353,16 +303,4 @@ input {
   display: block;
   margin: 0 auto;
 }
-
-.error-display {
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  font-family: Courier New, Courier, monospace;
-  font-size: 12px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 5px 10px;
-}
-
 `

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import markdown from 'markdown-in-js'
-import Layout from '../components/layout'
-import ExampleGroup from '../components/example-group'
-import Donate from '../components/donate-link'
+import Layout from '../../components/layout'
+import ExampleGroup from '../../components/example-group'
+import Donate from '../../components/donate-link'
 
 
 

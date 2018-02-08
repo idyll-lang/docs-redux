@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import markdown from 'markdown-in-js'
-import Layout from '../components/layout'
+import Layout from '../../components/layout'
 
 
 const Content = () => markdown`
@@ -66,7 +66,7 @@ The \`Tufte\` theme uses styles from <https://edwardtufte.github.io/tufte-css/>.
 `
 
 
-const ExampleCodeA = 
+const ExampleCodeA =
 `var Idyll = require('idyll');
 
 var idyll = Idyll({
@@ -85,7 +85,7 @@ idyll.build()
 `
 
 
-const ExampleCodeB = 
+const ExampleCodeB =
 `var idyll = Idyll();
 
 idyll

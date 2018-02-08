@@ -2,11 +2,11 @@ import React from 'react'
 import NextLink from 'next/link'
 import showdown from 'showdown'
 import Parser from 'html-react-parser';
-import Layout from '../components/layout'
+import Layout from '../../components/layout'
 
-import Contents from '../idyll-components/contents.yaml'
+import Contents from '../../idyll-components/contents.yaml'
 // import * as Descriptions from '../idyll-components/descriptions'
-import * as Examples from '../idyll-components/examples'
+import * as Examples from '../../idyll-components/examples'
 
 showdown.setFlavor('github')
 
@@ -66,7 +66,7 @@ class IdyllComponentInfo extends BaseSection {
     super(obj)
     this.parent = parent
     Object.assign(this, obj[this.name])
-    // this.Description = this.description 
+    // this.Description = this.description
     //   ? (() => md2html(this.description))
     //   : (Descriptions[this.name] || (() => null))
     this.Description = () => md2html(this.description) || null

@@ -38,70 +38,128 @@ class IdyllDocsLayout extends React.Component {
           <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
         </Head>
 
-        <nav>
-          <button
-            className="nav-toggler"
-            onClick={ () => this.toggleNavOpen() }
-          >toggle</button>
-          <header>
-            <a href="/">
-              <img src="/static/images/logo-text.svg" alt="idyll-lang" className="nav-logo" />
-            </a>
-          </header>
-          {
-            Contents.map(group => (
-              <section key={ group.title }>
-                <h1>{ group.title }</h1>
-                <ul>{
-                  group.pages.map(page => {
-                    const hrefPath = '/' + hrefFromName(page)
-                    return (
-                      <li className={ hrefPath === this.presentPath ? 'active' : null } key={ page }>
-                        <Link href={ hrefPath }>
-                          <a>{ page }</a>
-                        </Link>
-                      </li>
-                    )
-                  })
-                }</ul>
-              </section>
-            ))
-          }
-        </nav>
+        <header>
+          <a href="/" className="logo-container">
+            <img src="/static/images/quill.svg" alt="idyll-lang" className="nav-logo" />
+            idyll
+          </a>
 
-        <main>
-          { children }
-        </main>
+          <div className="link-group">
+            <div className="link">Docs</div>
+            <div className="link">Gallery</div>
+            <div className="link">Editor</div>
+          </div>
+        </header>
+
+        <div className="content-container">
+
+          <nav>
+            <button
+              className="nav-toggler"
+              onClick={ () => this.toggleNavOpen() }
+            >toggle</button>
+            {
+              Contents.map(group => (
+                <section key={ group.title }>
+                  <h1>{ group.title }</h1>
+                  <ul>{
+                    group.pages.map(page => {
+                      const hrefPath = '/docs/' + hrefFromName(page)
+                      return (
+                        <li className={ hrefPath === this.presentPath ? 'active' : null } key={ page }>
+                          <Link href={ hrefPath }>
+                            <a>{ page }</a>
+                          </Link>
+                        </li>
+                      )
+                    })
+                  }</ul>
+                </section>
+              ))
+            }
+          </nav>
+
+          <main>
+            <div className="main-container">
+              { children }
+            </div>
+          </main>
+        </div>
 
         <style jsx>{`
-          #master {
+          .content-container {
             display: flex;
             justify-content: flex-end;
+            padding-top: 70px;
           }
 
           nav, main {
             padding: 1em;
-            box-sizing: border-box;        
+            box-sizing: border-box;
           }
 
           nav {
-            background: #EAE7D6;
+            // background: #EAE7D6;
             transition: left ${NavTransitionDuration}s;
             position: fixed;
             left: 0;
-            top: 0;
+            top: 70px;
             bottom: 0;
             width: ${NavWidth}%;
-            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+            // box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+          }
+
+          header {
+            width: 100%;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background: #EAE7D6;
+            // border-bottom: solid 1px black;
           }
 
           main {
             width: ${MainWidth}%;
             transition: width ${NavTransitionDuration}s;
           }
+          .main-container {
+            max-width: 800px;
+            // margin: 0 auto;
+          }
 
           .nav-toggler {
             display: none;
+          }
+
+          header img {
+            height: calc(100% - 20px);
+            padding-right: 10px;
+            padding-left: 20px;
+          }
+
+          .logo-container {
+            // color: black;
+            font-family: 'Fira Mono';
+            font-size: 36px;
+            text-decoration: none;
+          }
+
+
+          .link-group {
+            display: flex;
+            align-items: center;
+            height: 100%;
+          }
+
+          .link {
+            font-family: 'Fira Mono';
+            font-size: 18px;
+            // width: 100%;
+            margin-right: 20px;
+            margin-left: 20px;
           }
 
           @media (max-width: 767px) {
@@ -135,8 +193,11 @@ class IdyllDocsLayout extends React.Component {
           }
 
           .nav-logo {
-            width: 100%;
-            max-width: 250px;
+            // width: 100%;
+            // max-width: 250px;
+            position: relative;
+            top: 10px;
+            // right: 30px;
           }
 
           ul {

@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import markdown from 'markdown-in-js'
-import Layout from '../components/layout'
+import Layout from '../../components/layout'
 
 
 const Content = () => markdown`
 # Syntax
-*Note: Idyll tries to maintain parity with popular markdown implementations, 
-but sometimes doesn't get things exactly right. If something seems off, 
+*Note: Idyll tries to maintain parity with popular markdown implementations,
+but sometimes doesn't get things exactly right. If something seems off,
 feel free to open [an issue](https://github.com/idyll-lang/idyll/issues?q=is%3Aissue+is%3Aopen+label%3ACompiler).*
 
 
@@ -62,7 +62,7 @@ This is a code block
 
 Besides text, components are the other basic building block of an Idyll document.
 Components are denoted with brackets, and can be invoked in one of two ways: they can be self
-closing, 
+closing,
 
 \`\`\`
 [Range min:0 max:10 value:value /]

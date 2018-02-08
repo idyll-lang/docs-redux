@@ -9,7 +9,13 @@ html, body {
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  // color: rgb(80, 80, 80);
+  color: black;
+}
+
+a, a:visited {
   color: rgb(80, 80, 80);
+  color: black;
 }
 
 figure {

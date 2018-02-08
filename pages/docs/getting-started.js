@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import markdown from 'markdown-in-js'
-import Layout from '../components/layout'
+import Layout from '../../components/layout'
 
 
 const Content = () => markdown`
@@ -13,8 +13,8 @@ can play around and try out the language.
 
 ## Quickstart
 
-To install and use Idyll locally, install it using \`npm\`. 
-If you don't have \`npm\` installed, first install it by 
+To install and use Idyll locally, install it using \`npm\`.
+If you don't have \`npm\` installed, first install it by
 following [these instructions](https://www.npmjs.com/get-npm).
 
 \`\`\`sh

@@ -99,14 +99,29 @@ class IdyllDocsLayout extends React.Component {
           }
 
           nav {
-            // background: #EAE7D6;
+            // background: #efefef;
             transition: left ${NavTransitionDuration}s;
             position: fixed;
             left: 0;
             top: 70px;
             bottom: 0;
             width: ${NavWidth}%;
+            border-right: solid 1px #999;
+            // background: #4C4B63;
+            // color: white;
             // box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+          }
+
+          nav ul {
+            margin-left: 10px;
+            margin-top: 0;
+          }
+          nav h1 {
+            margin-bottom: 0;
+            // margin-top: 0;
+          }
+          nav section {
+            margin-bottom: 2em;
           }
 
           header {
@@ -118,7 +133,7 @@ class IdyllDocsLayout extends React.Component {
             flex-direction: row;
             justify-content: space-between;
             background: #EAE7D6;
-            // border-bottom: solid 1px black;
+            // border-bottom: solid 1px #999;
           }
 
           main {
@@ -126,8 +141,10 @@ class IdyllDocsLayout extends React.Component {
             transition: width ${NavTransitionDuration}s;
           }
           .main-container {
-            max-width: 800px;
-            // margin: 0 auto;
+            max-width: 600px;
+            margin-left: 2em;
+            margin-right: 2em;
+            margin-top: 0;
           }
 
           .nav-toggler {
@@ -146,6 +163,7 @@ class IdyllDocsLayout extends React.Component {
             font-size: 36px;
             text-decoration: none;
           }
+
 
 
           .link-group {

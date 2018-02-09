@@ -18,11 +18,12 @@ export default class LandingPage extends React.PureComponent {
     this.state = {
       hasError: false,
       exampleValue: `
-# Test
+# Hello World
 
 [var name:"x" value:5 /]
 
-[Display value:x /]
+The value of x is [Display value:x format:"d" /].
+
 [Range value:x min:0 max:10 /]
       `.trim()
     }
@@ -61,7 +62,7 @@ export default class LandingPage extends React.PureComponent {
               A markup language for interactive documents.
             </div>
             <div className="example">
-              Idyll turns markup into interactive HTML and JavaScript.
+              {/* Idyll turns markup into interactive HTML and JavaScript. */}
 
               <div className="label">Input</div>
               <div className="textarea-container">
@@ -89,6 +90,9 @@ export default class LandingPage extends React.PureComponent {
             </div> */}
           </div>
           <div className="panel">
+            {/* <div className="alert">
+              Support the project by <a href="">buying a sticker</a>.
+            </div> */}
             <a href="/editor" className="editor-link">
               Try idyll in your browser.
             </a>
@@ -105,13 +109,20 @@ export default class LandingPage extends React.PureComponent {
                 GitHub
               </a>
               |
-              <a href="https://github.com/idyll-lang/idyll">
+              <a href="https://gitter.im/idyll-lang/">
                 Chat
               </a>
               {/* <a className="github-button" href="https://github.com/idyll-lang/idyll" data-icon="octicon-star" data-show-count="true" aria-label="Star idyll-lang/idyll on GitHub">Star</a> */}
             </div>
+            <div>
+              <p>
+                Idyll extends the ubiquitous Markdown format to enable the creation of dynamic, interactive narratives for the web. The language and toolchain aim to empower journalists, researchers, and subject-matter experts to create compelling content using familiar tools and processes.
+            </p>
+
+            </div>
             <div className="gallery">
-              <div className="gallery-title">Gallery <i>(hover to expand)</i></div>
+              <div className="gallery-title">Example Gallery
+              <img src="/static/images/arrow.svg" alt="scroll for more"/></div>
               <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/trig.png)' }}>
                 <div className="title">Trig</div>
               </div>
@@ -133,14 +144,14 @@ export default class LandingPage extends React.PureComponent {
             </div>
           </div>
         </section>
-        <section>
+        {/* <section>
           <div className="panel dark">
             <div className="content-container">
             </div>
           </div>
           <div className="panel alt">
           </div>
-        </section>
+        </section> */}
         <style jsx global>{`
           @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i');
 
@@ -149,12 +160,39 @@ export default class LandingPage extends React.PureComponent {
             padding: 0;
           }
 
+          * {
+            box-sizing: border-box;
+          }
+
           input {
             display: block;
           }
         `}</style>
         <style jsx>{`
 
+          p {
+            // display: none;
+            max-width: 476px;
+            margin: 2em auto 0 auto;
+            // text-align: justify;
+            line-height: 1.4em;
+            font-family: 'Source Sans Pro';
+          }
+          .alert {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #4C4B63;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            font-family: 'Source Sans Pro';
+            text-align: right;
+          }
+          .alert a, .alert a:visited {
+            color: white;
+          }
           textarea {
             display: block;
             width: 100%;
@@ -181,6 +219,7 @@ export default class LandingPage extends React.PureComponent {
             height: 100vh;
             width: 100%;
             position: relative;
+            overflow-y: auto;
           }
           .panel.alt {
             background: #E7E3D0;
@@ -193,8 +232,10 @@ export default class LandingPage extends React.PureComponent {
             background: white;
             width: 100%;
             padding: 5px 10px;
-            height: calc(100vh - 550px);
+            // height: calc(100vh - 550px);
             overflow-y: auto;
+            min-height: 140px;
+            margin-bottom: 1em;
           }
 
           input {
@@ -230,7 +271,7 @@ export default class LandingPage extends React.PureComponent {
             text-decoration: underline;
 
             text-align: center;
-            margin-top: 4em;
+            margin-top: 160px;
             margin-bottom: 1em;
           }
 
@@ -256,17 +297,20 @@ export default class LandingPage extends React.PureComponent {
           }
 
           .gallery {
-            height: 25vh;
-            position: absolute;
-            bottom: 0;
-            background: #84828F;
+            // height: 25vh;
+            // position: absolute;
+            // bottom: 0;
+            margin-top: calc(100vh - 160px - 150px - 100px - 150px);
+            font-size: 22px;
+            // background: #84828F;
             width: 100%;
             transition: height 1.5s;
             display: flex;
             flex-wrap: wrap;
+            overflow: hidden;
           }
           .gallery:hover {
-            height: calc(100vh - 250px);
+            // height: calc(100vh - 250px);
           }
 
           .gallery-item {
@@ -294,21 +338,29 @@ export default class LandingPage extends React.PureComponent {
           }
 
           .gallery-title {
-            position: absolute;
-            // padding: 10px 5px 100px 5px;
-            height: 100%;
-            background: rgba(132, 130, 143, 0.7);
-            font-family: 'Source Sans Pro';
-            color: white;
+            // position: absolute;
+            padding: 2em 0;
+            // height: 100%;
+            // background: rgba(132, 130, 143, 0.7);
+            font-family: 'Fira Mono';
+            // color: white;
             font-size: 0.9em;
             width: 100%;
             pointer-events: none;
             opacity: 1;
             transition: opacity 1s;
+            text-align: center;
+          }
+
+          .gallery-title img {
+            display: block;
+            width: 50px;
+            margin: 0 auto;
+            margin-top: 15px;
           }
 
           .gallery:hover .gallery-title {
-            opacity: 0;
+            // opacity: 0;
           }
 
           .editor-link:hover, .links a:hover {
@@ -325,13 +377,14 @@ export default class LandingPage extends React.PureComponent {
             font-weight: 300;
             // letter-spacing: 0.3em;
             line-height: 1.1em;
-            // text-align: center;
+            text-align: center;
           }
 
           .example {
             font-size: 18px;
             font-weight: normal;
             color: rgb(40, 40, 40);
+            text-align: left;
           }
 
           .label {

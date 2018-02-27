@@ -7,7 +7,7 @@ import Donate from '../../components/donate-link'
 
 
 const Intro = () => markdown`
-# Introducing Idyll
+# Introduction
 
 Idyll is a tool that makes it easier to author interactive narratives
 for the web. The goal of the project is to provide a friendly
@@ -101,7 +101,6 @@ const Examples = () => (
 export default ({ url }) => (
   <Layout url={ url }>
     <Intro />
-    <Examples />
     <p>
       In Idyll the entire document is reactive, built on top of Facebook's React framework. Changes
       immediately propagate through the entire page, taking the pain out of creating
@@ -110,7 +109,7 @@ export default ({ url }) => (
     </p>
     <Donate />
     <p>
-      Continue to the <Link href="/getting-started"><a>next section</a></Link> to start using Idyll.
+      Continue to the <Link href="./getting-started"><a>next section</a></Link> to start using Idyll.
     </p>
   </Layout>
 )

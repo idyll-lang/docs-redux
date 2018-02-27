@@ -1,13 +1,21 @@
 import React from 'react'
 import * as components from 'idyll-components'
 import IdyllDocument from 'idyll-document'
+import { resolveScopedStyles } from './utils';
+import styles from './styles/idyll';
+
+const scopedStyles = resolveScopedStyles(
+  <scope>
+    <style jsx>{styles}</style>
+  </scope>
+)
 
 class Renderer extends React.PureComponent {
   render() {
     const { ast, idyllHash } = this.props
     return (
-      <div className='renderer'>
-        <div className='renderer-container'>
+      <div className={`renderer `}>
+        <div className={`renderer-container ${scopedStyles.className}`}>
           <IdyllDocument
             ast={ ast }
             components={ components }
@@ -15,6 +23,8 @@ class Renderer extends React.PureComponent {
             datasets={ {} }
           />
         </div>
+
+        {scopedStyles.styles}
 
         <style jsx>{`
           .renderer {

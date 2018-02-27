@@ -2,9 +2,10 @@ import React from 'react'
 import IdyllEditArea from './edit-area'
 import IdyllRenderer from './renderer'
 import compile from 'idyll-compiler'
+import GlobalStyles from '../global-styles'
 import { hashCode } from './utils'
 import styles from './styles'
-
+import Head from 'next/head'
 
 class LiveIdyllEditor extends React.PureComponent {
   constructor(props) {
@@ -46,6 +47,13 @@ class LiveIdyllEditor extends React.PureComponent {
 
     return (
       <div className='container'>
+        <Head>
+          <title>Idyll | Editor</title>
+          <meta charSet='utf-8' />
+          <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+          <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossOrigin="anonymous" />
+        </Head>
         <IdyllEditArea initialContent={ initialMarkup } onChange={ this.handleChange } />
         <IdyllRenderer ast={ ast } idyllHash={ idyllHash } />
         { error && this.renderError() }
@@ -58,6 +66,9 @@ class LiveIdyllEditor extends React.PureComponent {
             overflow: auto;
           }
         `}</style>
+
+
+        <GlobalStyles />
       </div>
     )
   }

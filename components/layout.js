@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import GlobalStyles from './global-styles'
 import { Contents, hrefFromName } from '../contents'
+import TopNav from './top-nav';
 
 
 const NavWidth = 20; // %
@@ -10,8 +11,6 @@ const MainWidth = 100 - NavWidth; // %
 const TogglerWidth = 50; // px
 const TogglerHeight = 25; // px
 const NavTransitionDuration = 0.25; // s
-
-
 
 class IdyllDocsLayout extends React.Component {
   constructor(props) {
@@ -38,19 +37,7 @@ class IdyllDocsLayout extends React.Component {
           <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
         </Head>
 
-        <header>
-          <a href="/" className="logo-container">
-            <img src="/static/images/quill.svg" alt="idyll-lang" className="nav-logo" />
-            idyll
-          </a>
-
-          <div className="link-group">
-            <div className="link">Docs</div>
-            <div className="link">Gallery</div>
-            <div className="link">Editor</div>
-          </div>
-        </header>
-
+        <TopNav selected="docs" />
         <div className="content-container">
 
           <nav>
@@ -124,18 +111,6 @@ class IdyllDocsLayout extends React.Component {
             margin-bottom: 2em;
           }
 
-          header {
-            width: 100%;
-            height: 70px;
-            position: fixed;
-            top: 0;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            background: #EAE7D6;
-            // border-bottom: solid 1px #999;
-          }
-
           main {
             width: ${MainWidth}%;
             transition: width ${NavTransitionDuration}s;
@@ -151,34 +126,7 @@ class IdyllDocsLayout extends React.Component {
             display: none;
           }
 
-          header img {
-            height: calc(100% - 20px);
-            padding-right: 10px;
-            padding-left: 20px;
-          }
 
-          .logo-container {
-            // color: black;
-            font-family: 'Fira Mono';
-            font-size: 36px;
-            text-decoration: none;
-          }
-
-
-
-          .link-group {
-            display: flex;
-            align-items: center;
-            height: 100%;
-          }
-
-          .link {
-            font-family: 'Fira Mono';
-            font-size: 18px;
-            // width: 100%;
-            margin-right: 20px;
-            margin-left: 20px;
-          }
 
           @media (max-width: 767px) {
             .nav-closed nav {
@@ -210,13 +158,6 @@ class IdyllDocsLayout extends React.Component {
             }
           }
 
-          .nav-logo {
-            // width: 100%;
-            // max-width: 250px;
-            position: relative;
-            top: 10px;
-            // right: 30px;
-          }
 
           ul {
             padding: 0;

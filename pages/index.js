@@ -121,7 +121,7 @@ The value of x is [Display value:x format:"d" /].
 
             </div>
             <div className="gallery">
-              <div className="gallery-title">Example Gallery
+              <div className="gallery-title"><a href="./gallery">Example Gallery</a>
               <img src="/static/images/arrow.svg" alt="scroll for more"/></div>
               <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/trig.png)' }}>
                 <div className="title">Trig</div>
@@ -300,7 +300,8 @@ The value of x is [Display value:x format:"d" /].
             // height: 25vh;
             // position: absolute;
             // bottom: 0;
-            margin-top: calc(100vh - 160px - 150px - 100px - 150px);
+            margin-top: 0.5em;
+            // margin-top: calc(100vh - 160px - 150px - 100px - 150px);
             font-size: 22px;
             // background: #84828F;
             width: 100%;
@@ -332,7 +333,7 @@ The value of x is [Display value:x format:"d" /].
             display: block;
             text-decoration: none;
             color: white;
-          }
+          }npm
           .gallery-item:hover .title {
             opacity: 1;
           }
@@ -346,7 +347,7 @@ The value of x is [Display value:x format:"d" /].
             // color: white;
             font-size: 0.9em;
             width: 100%;
-            pointer-events: none;
+            // pointer-events: none;
             opacity: 1;
             transition: opacity 1s;
             text-align: center;
@@ -391,6 +392,27 @@ The value of x is [Display value:x format:"d" /].
             text-transform: uppercase;
             font-size: 0.8em;
             margin-top: 30px;
+          }
+
+
+          @media (max-width: 960px) {
+            section {
+              flex-direction: column;
+            }
+            .panel {
+              height: auto;
+              width: 100%;
+              position: relative;
+              overflow-y: auto;
+              padding-bottom: 2em;
+            }
+
+            .editor-link {
+              margin-top: 2em;
+            }
+            .gallery {
+              margin-top: 1em;
+            }
           }
 
         `}</style>

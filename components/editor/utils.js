@@ -1,4 +1,12 @@
 
+
+export const resolveScopedStyles = (scope) => {
+  return {
+    className: scope.props.className,
+    styles: scope.props.children
+  }
+}
+
 export const hashCode = (str) => {
   var hash = 0, i, chr;
   if (str.length === 0) return hash;

@@ -2,6 +2,8 @@ import React from 'react'
 import LiveIdyllEditor from '../components/editor'
 import exampleMarkup from '../components/editor/initial'
 import { hashCode } from '../components/editor/utils'
+import TopNav from '../components/top-nav';
+
 
 const grey = x => `rgb(${x}, ${x}, ${x})`
 
@@ -34,7 +36,8 @@ class EditorPage extends React.PureComponent {
   render() {
     return (
       <div className='editor-page'>
-        <nav>
+        <TopNav selected='editor' />
+        {/* <nav>
           <button onClick={ this.insertExample }>
             Load Example
           </button>
@@ -44,48 +47,27 @@ class EditorPage extends React.PureComponent {
           <button onClick={ this.save }>
             Save
           </button>
-        </nav>
-        <LiveIdyllEditor
-          markup={ this.state.inMarkup }
-          onChange={ this.setOutMarkup }
-          key={ this.state.inMarkupHash }
-        />
+        </nav> */}
+        <div className="editor-container">
+          <LiveIdyllEditor
+            markup={ this.state.inMarkup }
+            onChange={ this.setOutMarkup }
+            key={ this.state.inMarkupHash }
+          />
+        </div>
 
         <style jsx>{`
           .editor-page {
-            height: 100vh;
+          }
+
+          .editor-container {
+            margin-top: 70px;
+            height: calc(100vh - 70px);
             display: flex;
             flex-direction: column;
           }
 
-          nav {
-            width: 100%;
-            padding: 10px 20px;
-            background: #EAE7D6;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
-          }
 
-          nav button {
-            background: ${grey(200)};
-            padding: 10px;
-            border-radius: 10px;
-            min-width: 5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.5s;
-            outline: none;
-          }
-          nav button:not(:last-child) {
-            margin-right: 1rem;
-          }
-          nav button:hover {
-            background: ${grey(215)};
-          }
         `}</style>
       </div>
     )

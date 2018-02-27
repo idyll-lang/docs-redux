@@ -25,10 +25,11 @@ const Contents = [
     ],
   },
   {
-    title: 'Open Source',
+    title: 'Useful Links',
     pages: [
       'GitHub',
-      'Gitter',
+      'Chat',
+      'Mailing List'
     ],
   },
 ]

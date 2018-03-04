@@ -7,6 +7,14 @@ html, body {
   padding: 0;
 }
 
+html {
+  opacity: 0;
+  transition: opacity 0.25s ease-in;
+}
+html.loaded {
+  opacity: 1;
+}
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
   // color: rgb(80, 80, 80);
@@ -14,9 +22,15 @@ body {
 }
 
 a, a:visited {
-  color: rgb(80, 80, 80);
   color: black;
 }
+
+a:hover, a:visited:hover {
+  color: #6122FB;
+}
+
+
+
 
 figure {
   margin: 0;
@@ -34,7 +48,7 @@ code {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
   margin: 0;
-  font-size: 85%;
+  // font-size: 85%;
   background-color: rgba(0,0,0,0.04);
   border-radius: 3px;
 }
@@ -46,12 +60,15 @@ code:after {
 }
 
 pre {
-  padding: 16px;
+  padding: 15px 10px;
   overflow: auto;
   line-height: 1.45;
   background-color: #f7f7f7;
-  border-radius: 3px;
+  // border-radius: 3px;
   word-wrap: normal;
+  background: #4C4B63;
+  font-family: 'Fira Mono', monospace;
+  color: white;
 }
 
 pre code {

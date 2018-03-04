@@ -4,7 +4,7 @@ import Head from 'next/head'
 import GlobalStyles from './global-styles'
 import { Contents, hrefFromName } from '../contents'
 import TopNav from './top-nav';
-
+import Fonts from './fonts';
 
 const NavWidth = 20; // %
 const MainWidth = 100 - NavWidth; // %
@@ -22,14 +22,19 @@ class IdyllDocsLayout extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log('mount')
+    Fonts();
+  }
+
   toggleNavOpen() {
     this.setState({ navOpen: !this.state.navOpen })
   }
 
   render() {
-    const { title = 'Idyll', children } = this.props
+    const { title = 'Idyll', selected = "", children } = this.props
     return (
-      <div id="master" className={ this.state.navOpen ? 'nav-open' : 'nav-closed' }>
+      <div id="master" className={ this.state.navOpen ?  'nav-open' : 'nav-closed' }>
         <Head>
           <title>{ title }</title>
           <meta charSet='utf-8' />
@@ -49,7 +54,7 @@ class IdyllDocsLayout extends React.Component {
         <style jsx>{`
           .content-container {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             padding-top: 70px;
           }
 
@@ -62,7 +67,7 @@ class IdyllDocsLayout extends React.Component {
             transition: width ${NavTransitionDuration}s;
           }
           .main-container {
-            max-width: 600px;
+            // max-width: 600px;
             margin-left: 2em;
             margin-right: 2em;
             margin-top: 0;
@@ -74,6 +79,9 @@ class IdyllDocsLayout extends React.Component {
 
 
           @media (max-width: 767px) {
+            main {
+              width: 100%;
+            }
 
           }
 

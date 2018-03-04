@@ -10,19 +10,21 @@
   ],
   "license": "MIT",
   "scripts": {
-    "dev": "AWS_PROFILE=idyll BABEL_DISABLE_CACHE=1 next",
+    "dev": "AWS_PROFILE=idyll BABEL_DISABLE_CACHE=1 node server.js",
     "build": "next build",
     "export": "next export -o dist",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "draft-js": "^0.10.5",
+    "fontfaceobserver": "^2.0.13",
     "html-react-parser": "^0.4.1",
     "idyll-compiler": "^2.0.10",
-    "idyll-components": "^2.0.0",
-    "idyll-document": "^2.1.0",
+    "idyll-components": "^2.1.6",
+    "idyll-document": "^2.1.6",
     "markdown-in-js": "^1.1.3",
     "next": "^4.2.3",
+    "next-routes": "^1.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "showdown": "^1.8.6"

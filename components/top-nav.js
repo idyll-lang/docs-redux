@@ -1,15 +1,18 @@
+import Link from 'next/link'
 
 export default ({ selected }) => (
   <header>
-    <a href="/" className="logo-container">
-      <img src="/static/images/quill.svg" alt="idyll-lang" className="nav-logo" />
-      idyll
-    </a>
+    <Link href="/">
+      <a className="logo-container">
+        <img src="/static/images/quill.svg" alt="idyll-lang" className="nav-logo" />
+        <span className="logo-text">idyll</span>
+      </a>
+    </Link>
 
     <div className="link-group">
-      <a href="/docs" className={`link ${selected === 'docs' ? 'selected' : ''}`}>Docs</a>
-      <a href="/gallery" className={`link ${selected === 'gallery' ? 'selected' : ''}`}>Gallery</a>
-      <a href="/editor" className={`link ${selected === 'editor' ? 'selected' : ''}`}>Editor</a>
+      <Link href="/docs"><a className={`link ${selected === 'docs' ? 'selected' : ''}`}>Docs</a></Link>
+      <Link href="/gallery"><a className={`link ${selected === 'gallery' ? 'selected' : ''}`}>Gallery</a></Link>
+      <Link href="/editor"><a className={`link ${selected === 'editor' ? 'selected' : ''}`}>Editor</a></Link>
     </div>
     <style jsx>{`
       header {
@@ -29,6 +32,9 @@ export default ({ selected }) => (
         height: calc(100% - 20px);
         padding-right: 10px;
         padding-left: 20px;
+      }
+      .logo-text {
+        font-weight: bold;
       }
 
       .logo-container {
@@ -64,6 +70,24 @@ export default ({ selected }) => (
       a.selected {
         // color: rgb(97, 34, 251);
         border-bottom: solid 2px black;
+      }
+
+
+      @media (max-width: 760px) {
+        header {
+          height: 50px
+        }
+
+        .logo-container {
+          font-size: 24px;
+          margin: 0;
+        }
+        .nav-logo {
+          // top: 1px;
+        }
+        .logo-text {
+          display: none;
+        }
       }
 
     `}

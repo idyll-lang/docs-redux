@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Layout from '../../components/layout'
+import Layout from '../../../components/layout'
 import showdown from 'showdown'
 
 showdown.setFlavor('github')
@@ -71,7 +71,7 @@ export default ({ url }) => (
     <div dangerouslySetInnerHTML={ {__html: Content()} } />
     <p>
       You've learned all about Idyll! All that's left is{' '}
-      <Link href="/deploying-to-the-web">
+      <Link href="/docs/publishing/deploying-to-the-web">
         <a>deploying your project to the web</a>
       </Link>.
     </p>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Layout from '../../components/layout'
+import Layout from '../../../components/layout'
 import showdown from 'showdown'
 
 showdown.setFlavor('github')
@@ -113,7 +113,7 @@ export default ({ url }) => (
     <div dangerouslySetInnerHTML={ {__html: Content()} } />
     <p>
       Continue to learn how to use{' '}
-      <Link href="/scrolling-and-refs"><a>references</a></Link>
+      <Link href="/docs/components/scrolling-and-refs"><a>references</a></Link>
       {' '}to make your page more dynamic.
     </p>
   </Layout>

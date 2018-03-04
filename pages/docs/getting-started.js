@@ -81,7 +81,7 @@ export default ({ url }) => (
   <Layout url={ url }>
     <Content />
     <p>
-      Continue to the <Link href="/syntax"><a>next section</a></Link> to learn how to use Idyll's syntax.
+      Continue to the <Link href="/docs/syntax"><a>next section</a></Link> to learn how to use Idyll's syntax.
     </p>
   </Layout>
 )

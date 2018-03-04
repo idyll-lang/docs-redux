@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import markdown from 'markdown-in-js'
-import Layout from '../../components/layout'
+import Layout from '../../../components/layout'
 
 
 const Content = () => markdown`
@@ -31,7 +31,7 @@ export default ({ url }) => (
     <Content />
     <p>
       Continue to{' '}
-      <Link href="/custom-components"><a>custom components</a></Link>.
+      <Link href="/docs/components/custom"><a>custom components</a></Link>.
     </p>
   </Layout>
 )

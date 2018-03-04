@@ -3,6 +3,9 @@ import Link from 'next/link'
 import IdyllDocument from 'idyll-document';
 import * as IdyllComponents from 'idyll-components';
 import compile from 'idyll-compiler';
+import Head from 'next/head'
+import Fonts from '../components/fonts';
+
 // import markdown from 'markdown-in-js'
 
 
@@ -31,6 +34,10 @@ The value of x is [Display value:x format:"d" /].
   }
 
 
+  componentDidMount() {
+    Fonts();
+  }
+
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
   }
@@ -52,6 +59,12 @@ The value of x is [Display value:x format:"d" /].
     }
     return (
       <div>
+        <Head>
+          <title>Idyll</title>
+          <meta charSet='utf-8' />
+          <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+          <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+        </Head>
         <section>
           <div className="panel alt">
             <div className="logo-container">
@@ -80,7 +93,11 @@ The value of x is [Display value:x format:"d" /].
                 : null
               }
               {
-                error ? error.toString() : null
+                error ? (
+                  <pre>
+                    {error.toString()}
+                  </pre>
+                ) : null
               }
               </div>
 
@@ -93,55 +110,73 @@ The value of x is [Display value:x format:"d" /].
             {/* <div className="alert">
               Support the project by <a href="">buying a sticker</a>.
             </div> */}
-            <a href="/editor" className="editor-link">
-              Try idyll in your browser.
-            </a>
+            <div className="editor-link-container">
+              <Link  href="/editor"><a className="editor-link">
+                Try idyll in your browser
+              </a></Link>
+            </div>
             <div className="links">
-              <a href="/docs/getting-started">
-                Installation
-              </a>
+              <Link href="/docs/getting-started"><a>
+                Quick Start
+              </a></Link>
               |
-              <a href="/docs">
-                Documentation
-              </a>
+              <Link href="/docs"><a>
+                Docs
+              </a></Link>
               |
-              <a href="https://github.com/idyll-lang/idyll">
+              <a href="https://github.com/idyll-lang/idyll" target="_blank">
                 GitHub
               </a>
               |
-              <a href="https://gitter.im/idyll-lang/">
+              <a href="https://gitter.im/idyll-lang/" target="_blank">
                 Chat
+              </a>
+              |
+              <a href="https://groups.google.com/forum/#!forum/idyll-lang" target="_blank">
+                Mailing List
+              </a>
+              |
+              <a href="https://opencollective.com/idyll" target="_blank">
+                Support Us
               </a>
               {/* <a className="github-button" href="https://github.com/idyll-lang/idyll" data-icon="octicon-star" data-show-count="true" aria-label="Star idyll-lang/idyll on GitHub">Star</a> */}
             </div>
             <div>
               <p>
-                Idyll extends the ubiquitous Markdown format to enable the creation of dynamic, interactive narratives for the web. The language and toolchain aim to empower journalists, researchers, and subject-matter experts to create compelling content using familiar tools and processes.
-            </p>
-
+                <b>Idyll</b> extends the ubiquitous Markdown format to enable the creation of dynamic, interactive narratives for the web. The language and toolchain aim to empower journalists, researchers, and technical experts to create compelling content using familiar tools and processes.
+              </p>
+              <p>
+                Idyll can be used to create explorable explanations, to power blog engines and content management systems, and to generate dynamic technical reports. The tool can generate standalone webpages or be embedded inside of your existing site.
+              </p>
             </div>
-            <div className="gallery">
-              <div className="gallery-title"><a href="./gallery">Example Gallery</a>
-              <img src="/static/images/arrow.svg" alt="scroll for more"/></div>
-              <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/trig.png)' }}>
-                <div className="title">Trig</div>
+            <Link href="/gallery">
+              <div className="gallery">
+                <div className="gallery-title">
+                  <a href="./gallery">Example Gallery</a>
+                  <img src="/static/images/arrow.svg" alt="scroll for more"/>
+                </div>
+                {/* <a href="./gallery" className="gallery-image-block" style={{display: 'block'}}> */}
+                  <div className="gallery-item" style={{ backgroundImage: 'url(/static/images/trig.png)' }}>
+                    <div className="title"></div>
+                  </div>
+                  <div className="gallery-item" style={{ backgroundImage: 'url(https://mathisonian.github.io/dashcam/images/share.png)' }}>
+                    <div className="title"></div>
+                  </div>
+                  <div className="gallery-item" style={{ backgroundImage: 'url(/static/images/complaints-2.gif)' }}>
+                    <div className="title"></div>
+                  </div>
+                  <div className="gallery-item" style={{ backgroundImage: 'url(/static/images/lorenz.png)' }}>
+                    <div className="title"></div>
+                  </div>
+                  <div className="gallery-item" style={{ backgroundImage: 'url(/static/images/regl.png)' }}>
+                    <div className="title"></div>
+                  </div>
+                  <div className="gallery-item" style={{ backgroundImage: 'url(/static/images/d3.png)' }}>
+                    <div className="title"></div>
+                  </div>
+                {/* </a> */}
               </div>
-              <div className="gallery-item" style={{ backgroundImage: 'url(https://mathisonian.github.io/dashcam/images/share.png)' }}>
-              <div className="title"></div>
-              </div>
-              <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/complaints-2.gif)' }}>
-              <div className="title"></div>
-              </div>
-              <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/lorenz.png)' }}>
-              <div className="title"></div>
-              </div>
-              <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/regl.png)' }}>
-              <div className="title"></div>
-              </div>
-              <div className="gallery-item" style={{ backgroundImage: 'url(https://idyll-lang.org/images/complaints-2.gif)' }}>
-              <div className="title"></div>
-              </div>
-            </div>
+            </Link>
           </div>
         </section>
         {/* <section>
@@ -153,11 +188,18 @@ The value of x is [Display value:x format:"d" /].
           </div>
         </section> */}
         <style jsx global>{`
-          @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i');
 
           html, body {
             margin: 0;
             padding: 0;
+          }
+
+          html {
+            opacity: 0;
+            transition: opacity 0.25s ease-in;
+          }
+          html.loaded {
+            opacity: 1;
           }
 
           * {
@@ -169,7 +211,6 @@ The value of x is [Display value:x format:"d" /].
           }
         `}</style>
         <style jsx>{`
-
           p {
             // display: none;
             max-width: 476px;
@@ -259,20 +300,30 @@ The value of x is [Display value:x format:"d" /].
             text-decoration: none;
             text-align: center;
             margin-top: 1em;
+            font-weight: bold;
           }
 
-          .editor-link {
+          .editor-link-container {
             display: block;
             width: 100%;
             margin: 0 auto;
-            font-family: 'Fira Mono';
-            color: black;
-            font-size: 22px;
-            text-decoration: underline;
-
-            text-align: center;
             margin-top: 160px;
-            margin-bottom: 1em;
+            // margin-top: 84px;
+            text-align: center;
+            margin-bottom: 2em;
+          }
+
+          .editor-link {
+            // display: block;
+            font-family: 'Fira Mono';
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            color: white;
+            background: #6122FB;
+            background: #4C4B63;
+            padding: 10px 10px;
+            transition: color 0.5s, background 0.5s;
           }
 
           .other-links {
@@ -309,9 +360,11 @@ The value of x is [Display value:x format:"d" /].
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
+            cursor: pointer;
+
           }
-          .gallery:hover {
-            // height: calc(100vh - 250px);
+          .gallery:hover .gallery-item .title {
+            opacity: 0.5;
           }
 
           .gallery-item {
@@ -333,9 +386,9 @@ The value of x is [Display value:x format:"d" /].
             display: block;
             text-decoration: none;
             color: white;
-          }npm
+          }
           .gallery-item:hover .title {
-            opacity: 1;
+            // opacity: 1;
           }
 
           .gallery-title {
@@ -360,12 +413,25 @@ The value of x is [Display value:x format:"d" /].
             margin-top: 15px;
           }
 
+          .gallery-title a,.gallery-title a:visited {
+            color: #000;
+          }
+          .gallery-title a:hover {
+            color: #6122FB;
+          }
+
           .gallery:hover .gallery-title {
             // opacity: 0;
           }
 
-          .editor-link:hover, .links a:hover {
+           .links a:hover {
             color: #6122FB;
+            font-weight: bold;
+          }
+
+          .editor-link:hover {
+            // color: #6122FB;
+            background: #6122FB;
           }
 
           .example,
@@ -405,13 +471,19 @@ The value of x is [Display value:x format:"d" /].
               position: relative;
               overflow-y: auto;
               padding-bottom: 2em;
+              padding-left: 1em;
+              padding-right: 1em;
             }
 
-            .editor-link {
-              margin-top: 2em;
+            .editor-link-container {
+              margin-top: 3em;
             }
             .gallery {
               margin-top: 1em;
+            }
+
+            .links {
+              font-size: 0.9em;
             }
           }
 

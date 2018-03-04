@@ -4,7 +4,7 @@ const imageUrl = (url) => /^http/.test(url) ? url : `/static/images/${url}`
 
 export default ({ href, label, image }) => (
   <div className="example">
-    <a href={ href }>
+    <a href={ href } target="_blank">
       <div
         className="example-image"
         style={{ backgroundImage: `url(${imageUrl(image)})` }}
@@ -14,9 +14,18 @@ export default ({ href, label, image }) => (
 
     <style jsx>{`
       .example {
-        background-color: #f7f7f7;
-        padding: 15px;
+        border: solid 2px #efefef;
+        transition: border 0.25s;
       }
+
+      .example:hover {
+        border: solid 2px #6122FB;
+      }
+      .example:hover .example-label {
+        background: #6122FB;
+        color: white;
+      }
+
 
       .example a {
         display: block;
@@ -27,6 +36,9 @@ export default ({ href, label, image }) => (
         color: black;
         text-align: center;
         font-weight: bold;
+        background: #efefef;
+        padding: 15px;
+        transition: background 0.25s, color 0.25s;
       }
 
       .example-image {
@@ -35,7 +47,6 @@ export default ({ href, label, image }) => (
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        margin-bottom: 10px;
       }
     `}</style>
   </div>

@@ -3,7 +3,7 @@ import LiveIdyllEditor from '../components/editor'
 import exampleMarkup from '../components/editor/initial'
 import { hashCode } from '../components/editor/utils'
 import TopNav from '../components/top-nav';
-
+import Fonts from '../components/fonts';
 
 const grey = x => `rgb(${x}, ${x}, ${x})`
 
@@ -16,6 +16,10 @@ class EditorPage extends React.PureComponent {
       inMarkup: exampleMarkup,
     }
     this.outMarkup = exampleMarkup
+  }
+
+  componentDidMount() {
+    Fonts();
   }
 
   setOutMarkup = outMarkup => (this.outMarkup = outMarkup)

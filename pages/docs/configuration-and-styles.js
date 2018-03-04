@@ -62,7 +62,7 @@ This theme uses custom styles that go along with Idyll's look and feel. See <htt
 
 The \`Tufte\` theme uses styles from <https://edwardtufte.github.io/tufte-css/>.
 
-![tufte](static/images/tufte.png)
+![tufte](/static/images/tufte.png)
 `
 
 
@@ -123,7 +123,7 @@ export default ({ url }) => (
 
     <p>
       Continue to the next section to learn about{' '}
-      <Link href="/components-overview"><a>Idyll components</a></Link>.
+      <Link href="/docs/components"><a>Idyll components</a></Link>.
     </p>
   </Layout>
 )

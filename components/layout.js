@@ -2,8 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import GlobalStyles from './global-styles'
-import { Contents, hrefFromName } from '../contents'
+import { Contents } from '../contents'
 import TopNav from './top-nav';
+import Fonts from './fonts';
 
 
 const NavWidth = 20; // %
@@ -20,6 +21,12 @@ class IdyllDocsLayout extends React.Component {
     this.state = {
       navOpen: false,
     }
+  }
+
+
+  componentDidMount() {
+    console.log('mount')
+    Fonts();
   }
 
   toggleNavOpen() {
@@ -44,19 +51,24 @@ class IdyllDocsLayout extends React.Component {
             <button
               className="nav-toggler"
               onClick={ () => this.toggleNavOpen() }
-            >toggle</button>
+            ><svg width={15} height={15} viewBox={`0 0 100 100`}><path d="M 25 50 L 100 0 L 100 100 Z" fill="#ddd" stroke="none" /></svg></button>
             {
               Contents.map(group => (
                 <section key={ group.title }>
                   <h1>{ group.title }</h1>
                   <ul>{
                     group.pages.map(page => {
-                      const hrefPath = '/docs/' + hrefFromName(page)
                       return (
-                        <li className={ hrefPath === this.presentPath ? 'active' : null } key={ page }>
-                          <Link href={ hrefPath }>
-                            <a>{ page }</a>
+                        <li className={ page.route === this.presentPath ? 'active' : null } key={ page.title }>
+                        {
+                          page.route.indexOf('http') > -1 ? (
+                            <a href={page.route} target='_blank'>{page.title}</a>
+                          ) : (
+                          <Link href={ page.route }>
+                            <a>{ page.title }</a>
                           </Link>
+                          )
+                        }
                         </li>
                       )
                     })
@@ -93,6 +105,7 @@ class IdyllDocsLayout extends React.Component {
             top: 70px;
             bottom: 0;
             width: ${NavWidth}%;
+            min-width: 130px;
             border-right: solid 1px #999;
             // background: #4C4B63;
             // color: white;
@@ -129,13 +142,29 @@ class IdyllDocsLayout extends React.Component {
 
 
           @media (max-width: 767px) {
+
+            main {
+              width: 100%;
+            }
+
+            nav {
+              width: 130px;
+              background: white;
+              top: 50px;
+
+              overflow-y: auto;
+            }
             .nav-closed nav {
-              left: -${NavWidth}%;
+              left: -130px;
+              overflow-y: inherit;
+            }
+            .content-container {
+              padding-top: 50px;
             }
             .nav-toggler {
               display: block;
               position: absolute;
-              top: 0;
+              top: 10px;
               right: 0;
               transition: all ${NavTransitionDuration}s;
               margin-right: 0;
@@ -155,6 +184,9 @@ class IdyllDocsLayout extends React.Component {
             }
             nav header {
               margin-top: ${TogglerHeight}px;
+            }
+            ul {
+              font-size: 0.8em;
             }
           }
 

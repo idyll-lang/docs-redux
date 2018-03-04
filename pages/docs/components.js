@@ -1,14 +1,25 @@
 import React from 'react'
-import NextLink from 'next/link'
+import Link from 'next/link'
 import showdown from 'showdown'
 import Parser from 'html-react-parser';
 import Layout from '../../components/layout'
 
-import Contents from '../../idyll-components/contents.yaml'
+import Contents from '../../idyll-components/contents'
 // import * as Descriptions from '../idyll-components/descriptions'
 import * as Examples from '../../idyll-components/examples'
 
 showdown.setFlavor('github')
+
+
+function slugify(text)
+{
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
 
 const mdConverter = new showdown.Converter()
 console.log(Contents)
@@ -49,14 +60,14 @@ class IdyllComponentGroup extends BaseSection {
 
   renderContents() {
     return (
-      <li key={ this.name }>
-        <a href={ `#${this.hrefId}` }>{ this.title }</a>
-        {' '}&mdash;{' '}
+      <div key={ this.name }>
+
+        <h3>{ this.title }</h3>
         { md2html(this.description) }
-        <ul>
+        <div style={{display: 'flex', flexWrap: 'wrap', width: 'calc(100vw - 2em - 20% - 175px)'}}>
           { this.components.map(comp => comp.renderContents()) }
-        </ul>
-      </li>
+        </div>
+      </div>
     )
   }
 }
@@ -73,15 +84,19 @@ class IdyllComponentInfo extends BaseSection {
     this.exampleCode = Examples[this.name]
   }
 
-  get hrefId() {
-    return `${this.parent.hrefId}-${super.hrefId}`
+
+  get slug() {
+    return slugify(this.title);
   }
 
   renderContents() {
     return (
-      <li key={ this.name }>
-        <a href={ `#${this.hrefId}` }>{ this.title }</a>
-      </li>
+      <Link href={ `/docs/components/default/${this.slug}` } >
+        <a style={{display: 'block', width: 140, margin: 20}} >
+          <img style={{display: 'block' , width: '100%'}} src={`/static/images/components/thumbnails/${this.thumbnail}`} />
+          <div style={{textAlign: 'center', margin: '10px 0'}} >{ this.title }</div>
+        </a>
+      </Link>
     )
   }
 }
@@ -116,9 +131,9 @@ class IdyllComponentDoc extends React.Component {
         { idyllProps && idyllProps.length > 0 &&
           <div>
             <h4>Props</h4>
-            <ul>
+            <div>
               { idyllProps.map(p => this.renderPropBullet(p)) }
-            </ul>
+            </div>
           </div>
         }
       </div>
@@ -159,25 +174,31 @@ class IdyllComponentSection extends React.Component {
 
 const groups = Contents.map(groupObj => new IdyllComponentGroup(groupObj))
 
-
-
 export default ({ url }) => (
   <Layout url={ url }>
     <h1>Built-In Components</h1>
     <p>
-      Idyll ships with a handful of components that handle common tasks. They are broken into three categories:
+      Idyll ships with a handful of components that handle common tasks. They are broken into three categories:{' '}
+      <em>layout</em>, <em>presentation</em>, and <em>helpers</em>.
     </p>
     <div className="page-contents">
-      <ul>
+      <div>
         { groups.map(g => g.renderContents()) }
-      </ul>
+      </div>
     </div>
 
-    { groups.map(g => <IdyllComponentSection group={ g } key={ g.name } />) }
-
+    {/* <p>
+      Components are resolved according to following algorithm:
+      <ul>
+      <li>If there is a custom component with this name, use it.</li>
+      <li>If there is a component installed from npm with this name, use it.</li>
+      <li>If there is a built-in component with this name, use it.</li>
+      <li>If there is a valid HTML tag with this name, use it.</li>
+      </ul>
+    </p> */}
     <p>
       Continue to{' '}
-      <NextLink href="/npm-components"><a>npm components</a></NextLink>.
+      <Link href="/docs/components/npm"><a>npm components</a></Link>.
     </p>
   </Layout>
 )

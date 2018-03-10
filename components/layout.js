@@ -5,7 +5,7 @@ import GlobalStyles from './global-styles'
 import { Contents } from '../contents'
 import TopNav from './top-nav';
 import Fonts from './fonts';
-
+import { logPageView, initGA } from './analytics';
 
 const NavWidth = 20; // %
 const MainWidth = 100 - NavWidth; // %
@@ -27,6 +27,11 @@ class IdyllDocsLayout extends React.Component {
   componentDidMount() {
     console.log('mount')
     Fonts();
+    if (!window.GA_INITIALIZED) {
+      initGA()
+      window.GA_INITIALIZED = true
+    }
+    logPageView()
   }
 
   toggleNavOpen() {
@@ -42,6 +47,11 @@ class IdyllDocsLayout extends React.Component {
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
           <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+          <meta property='og:image' content='https://idyll-lang.org/static/images/twitter-share.png' />
+          <meta property='og:description' content="A markup language for interactive documents." />
+          <meta property='og:title' content={title} />
+          <meta property='og:url' content='https://idyll-lang.org' />
+          <meta property='og:type' content='website' />
         </Head>
 
         <TopNav selected="docs" />

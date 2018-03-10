@@ -13,19 +13,18 @@ const Content = () => mdConverter.makeHtml(`
 
 ## Overview
 
-Idyll is designed for people to use their own custom components as well.
-Under the hood an Idyll component just needs to be anything that will
+Under the hood an Idyll component is anything that will
 function as a React component. If you create a custom component in
-JavaScript, point Idyll to the folder where you created it and
-everything will just work, no need to worry about compiling, bundling,
-or module loading.
+JavaScript, point Idyll to the folder where you created it and it will
+be available in your markup.
 
 For example, this custom component
 
 \`\`\`js
+// custom.js
 const React = require('react');
 
-class Custom extends IdyllComponent {
+class Custom extends React.Component {
   render() {
     const { hasError, updateProps, ...props } = this.props;
 
@@ -40,18 +39,20 @@ class Custom extends IdyllComponent {
 module.exports = Custom;
 \`\`\`
 
-could be invoked inside of an Idyll file with the
+would be invoked inside of an Idyll file with the
 following code:
 
 \`\`\`
 [Custom /]
 \`\`\`
 
-## Idyll component
+## Updating the Document
 
-Idyll adds an \`updateProps\` method to the components input props.
-This function can be called to update variable values and propagate
-those changes to the rest of the Idyll document.
+Idyll provides a way for your components to push state changes back up to the
+document. This is how a component is able to affect change through the document.
+An \`updateProps\` method is injected onto the \`props\` object that your
+custom component receives. This function can be called to update variable values
+and propagate those changes to the rest of the Idyll document.
 
 ### Example
 

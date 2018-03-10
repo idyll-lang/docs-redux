@@ -7,7 +7,7 @@ const Content = () => markdown`
 # Getting Started
 
 If you just want to quickly try out Idyll, we offer
-an [online editor](https://idyll-lang.github.io/editor/) where you
+an [online editor](https://idyll-lang.github.io/editor) where you
 can play around and try out the language.
 
 

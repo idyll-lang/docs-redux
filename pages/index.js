@@ -5,6 +5,7 @@ import * as IdyllComponents from 'idyll-components';
 import compile from 'idyll-compiler';
 import Head from 'next/head'
 import Fonts from '../components/fonts';
+import { logPageView, initGA } from '../components/analytics';
 
 // import markdown from 'markdown-in-js'
 
@@ -36,6 +37,11 @@ The value of x is [Display value:x format:"d" /].
 
   componentDidMount() {
     Fonts();
+    if (!window.GA_INITIALIZED) {
+      initGA()
+      window.GA_INITIALIZED = true
+    }
+    logPageView()
   }
 
   componentDidCatch(error, info) {
@@ -64,6 +70,16 @@ The value of x is [Display value:x format:"d" /].
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
           <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+          <meta property='og:image' content='https://idyll-lang.org/static/images/twitter-share.png' />
+          <meta property='og:description' content="A markup language for interactive documents." />
+          <meta property='og:title' content="Idyll" />
+          <meta property='og:url' content='https://idyll-lang.org' />
+          <meta property='og:type' content='website' />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:creator" content="@mathisonian" />
+          <meta name="twitter:title" content="Idyll" />
+          <meta name="twitter:description" content="A markup language for interactive documents." />
+          <meta name="twitter:image" content="https://idyll-lang.org/static/images/twitter-share.png" />
         </Head>
         <section>
           <div className="panel alt">
@@ -111,9 +127,9 @@ The value of x is [Display value:x format:"d" /].
               Support the project by <a href="">buying a sticker</a>.
             </div> */}
             <div className="editor-link-container">
-              <Link  href="/editor"><a className="editor-link">
+              <a className="editor-link" href="/editor">
                 Try idyll in your browser
-              </a></Link>
+              </a>
             </div>
             <div className="links">
               <Link href="/docs/getting-started"><a>
@@ -147,6 +163,7 @@ The value of x is [Display value:x format:"d" /].
               </p>
               <p>
                 Idyll can be used to create explorable explanations, to power blog engines and content management systems, and to generate dynamic technical reports. The tool can generate standalone webpages or be embedded inside of your existing site.
+
               </p>
             </div>
             <Link href="/gallery">
@@ -471,6 +488,8 @@ The value of x is [Display value:x format:"d" /].
               position: relative;
               overflow-y: auto;
               padding-bottom: 2em;
+            }
+            p {
               padding-left: 1em;
               padding-right: 1em;
             }
@@ -485,10 +504,12 @@ The value of x is [Display value:x format:"d" /].
             .links {
               font-size: 0.9em;
             }
+            .example {
+              width: 95%;
+            }
           }
 
         `}</style>
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
       </div>
     )
   }

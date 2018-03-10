@@ -4,6 +4,8 @@ import exampleMarkup from '../components/editor/initial'
 import { hashCode } from '../components/editor/utils'
 import TopNav from '../components/top-nav';
 import Fonts from '../components/fonts';
+import request from 'superagent';
+import {Router} from '../routes';
 
 const grey = x => `rgb(${x}, ${x}, ${x})`
 
@@ -31,6 +33,36 @@ class EditorPage extends React.PureComponent {
     })
   }
 
+  
+
+  static async getInitialProps(props) {
+    if (!props.query.uuid) {
+      return {intiialMarkup: exampleMarkup};
+    }
+    
+    return new Promise(resolve => {
+    console.log(props.query.uuid);
+    request
+    .get('localhost:3000/api/editor/' + props.query.uuid)
+    .end((err, res) => {
+      console.log(err);
+      console.log(res.body)
+      resolve({intialMarkup: res.body.markup})
+    });
+  })
+}
+  
+
+  handleClick() {
+  request
+    .post('/api/editor')
+    .send({ markup: exampleMarkup }) // sends a JSON post body
+    .end((err, res) => {
+      console.log(res.body);
+      Router.pushRoute('editor', {uuid: res.body.id});
+    });
+  }
+
   savedContent = () => (window.localStorage.getItem('editorContent') || '')
   save = () => window.localStorage.setItem('editorContent', this.outMarkup)
 
@@ -38,6 +70,7 @@ class EditorPage extends React.PureComponent {
   insertExample = () => this.setInMarkup(exampleMarkup)
 
   render() {
+    console.log(this.props.intialMarkup)
     return (
       <div className='editor-page'>
         <TopNav selected='editor' />
@@ -58,6 +91,9 @@ class EditorPage extends React.PureComponent {
             onChange={ this.setOutMarkup }
             key={ this.state.inMarkupHash }
           />
+          <button onClick={this.handleClick} style={{position:'fixed', bottom:20, right:20}}>
+            Save
+          </button>
         </div>
 
         <style jsx>{`

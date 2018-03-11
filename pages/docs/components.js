@@ -91,7 +91,7 @@ class IdyllComponentInfo extends BaseSection {
 
   renderContents() {
     return (
-      <Link href={ `/docs/components/default/${this.slug}` } >
+      <Link route='component' params={{slug: this.slug}}  >
         <a style={{display: 'block', width: 140, margin: 20}} >
           <img style={{display: 'block' , width: '100%'}} src={`/static/images/components/thumbnails/${this.thumbnail}`} />
           <div style={{textAlign: 'center', margin: '10px 0'}} >{ this.title }</div>

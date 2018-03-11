@@ -26,9 +26,7 @@ class IdyllComponentDoc extends React.Component {
       idyllProps,
     } = this.props.component
 
-    console.log('description', description);
     const exampleCode = Examples[title];
-    console.log('exampleCode', exampleCode);
 
     return (
       <div id={ hrefId }>
@@ -88,7 +86,7 @@ export default class IdyllComponentPage extends React.PureComponent {
     return (
       <Layout url={ url }>
         <div>
-          <Link href={'/docs/components/'}>← Back</Link>
+          <Link href={'/docs/components'}><a>← Back</a></Link>
           <IdyllComponentDoc component={ comp } />
         </div>
       </Layout>

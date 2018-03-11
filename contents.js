@@ -9,7 +9,7 @@ const Contents = [
     ],
   },
   {
-    title: 'Components',
+    title: 'Interactivity',
     pages: [
       {title: 'Built-in components', route: '/docs/components' },
       {title: 'Using components from npm', route: '/docs/components/npm' },

@@ -43,29 +43,29 @@ const components = [
             ]
           }
         },
-        {
-          "FullScreen": {
-            "thumbnail": "full-screen.png",
-            "description": "This container component will break out of the article column and take up the readers entire viewport.",
-            "idyllProps": [
-              {
-                "backgroundImage": "an image to be displayed."
-              }
-            ]
-          }
-        },
+        // {
+        //   "FullScreen": {
+        //     "thumbnail": "full-screen.png",
+        //     "description": "This container component will break out of the article column and take up the readers entire viewport.",
+        //     "idyllProps": [
+        //       {
+        //         "backgroundImage": "an image to be displayed."
+        //       }
+        //     ]
+        //   }
+        // },
         {
           "Inline": {
             "thumbnail": "inline.png",
             "description": "The `inline` component adds the `display: inline-block` style property, so that items inside of `inline` component will be displayed next to each other. For example, this code will display three images side by side:"
           }
         },
-        {
-          "Panel": {
-            "thumbnail": "panel.png",
-            "description": "A panel is a section that will \"slide up\" after a the end of a `Feature` was reached. This component must be used directly after a `Feature` component for it to work properly."
-          }
-        },
+        // {
+        //   "Panel": {
+        //     "thumbnail": "panel.png",
+        //     "description": "A panel is a section that will \"slide up\" after a the end of a `Feature` was reached. This component must be used directly after a `Feature` component for it to work properly."
+        //   }
+        // },
         {
           "Waypoint": {
             "thumbnail": "waypoint.png",

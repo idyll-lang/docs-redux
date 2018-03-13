@@ -4,51 +4,86 @@ import exampleMarkup from '../components/editor/initial'
 import { hashCode } from '../components/editor/utils'
 import TopNav from '../components/top-nav';
 import Fonts from '../components/fonts';
-import { logPageView, initGA } from '../components/analytics';
 import Head from 'next/head'
+import 'isomorphic-fetch';
+
+import request from 'superagent';
+import {Router} from '../routes';
+import { logPageView, initGA } from '../components/analytics';
+
+const API_URL = 'https://idyll-docs-wwijepjavd.now.sh';
 
 const grey = x => `rgb(${x}, ${x}, ${x})`
-
-
 
 class EditorPage extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      inMarkup: exampleMarkup,
+      showSaved: false,
+      edited: false
     }
-    this.outMarkup = exampleMarkup
+  }
+
+  static async getInitialProps({ req, query }) {
+    if(query && query.uuid) {
+      try {
+        const res = await fetch(`${API_URL}/api/editor/${query.uuid}`)
+        const json = await res.json()
+        return { initialMarkup: json.markup }
+      } catch(e) {
+        console.log(e);
+      }
+    }
+
+    return { initialMarkup: exampleMarkup }
   }
 
   componentDidMount() {
     Fonts();
     if (!window.GA_INITIALIZED) {
-      initGA()
-      window.GA_INITIALIZED = true
+      initGA();
+      window.GA_INITIALIZED = true;
     }
-    logPageView()
+    logPageView();
   }
 
-  setOutMarkup = outMarkup => (this.outMarkup = outMarkup)
-
-  setInMarkup(inMarkup) {
-    this.setState({
-      inMarkup,
-      inMarkupHash: hashCode(inMarkup),
-    })
+  handleChange = (markup) => {
+    this.currentMarkup = markup;
+    if (hashCode(markup) !== hashCode(this.props.initialMarkup)) {
+      this.setState({ edited: true });
+    }
   }
 
-  savedContent = () => (window.localStorage.getItem('editorContent') || '')
-  save = () => window.localStorage.setItem('editorContent', this.outMarkup)
+  handleClick = () => {
+    request
+      .post(`${API_URL}/api/editor`)
+      .send({ markup: this.currentMarkup || this.props.initialMarkup || '' }) // sends a JSON post body
+      .end((err, res) => {
+        Router.pushRoute('editor', {uuid: res.body.id});
+        this.setState({ edited: false, showSaved: true });
+        setTimeout(() => {
+          this.setState({ showSaved: false })
+        }, 2000);
+      });
+  }
 
-  loadFromSaved = () => this.setInMarkup(this.savedContent())
-  insertExample = () => this.setInMarkup(exampleMarkup)
+  handleFullscreen = () => {
+    request
+      .post(`${API_URL}/api/editor`)
+      .send({ markup: this.currentMarkup || this.props.initialMarkup || '' }) // sends a JSON post body
+      .end((err, res) => {
+        Router.pushRoute('fullscreen', {uuid: res.body.id});
+      });
+  }
 
   render() {
+    if (!this.currentMarkup) {
+      this.currentMarkup = this.props.initialMarkup;
+    }
     return (
       <div className='editor-page'>
         <Head>
-          <title>{ 'Idyll Editory' }</title>
+          <title>{ 'Idyll Editor' }</title>
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
           <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
@@ -71,11 +106,31 @@ class EditorPage extends React.PureComponent {
           </button>
         </nav> */}
         <div className="editor-container">
-          <LiveIdyllEditor
-            markup={ this.state.inMarkup }
-            onChange={ this.setOutMarkup }
-            key={ this.state.inMarkupHash }
-          />
+          {
+            // this.state.initialMarkup ? (
+              <LiveIdyllEditor
+                markup={ this.props.initialMarkup }
+                onChange={ this.handleChange }
+              />
+            // ) : null
+          }
+          <button onClick={this.handleFullscreen} style={{position:'fixed', bottom:20, right:20}}>
+            Fullscreen
+          </button>
+          {
+            this.state.edited ? (
+              <button onClick={this.handleClick} style={{position:'fixed', bottom:20, right:120}}>
+                Save
+              </button>
+            ) : null
+          }
+          {
+            this.state.showSaved ? (
+              <div style={{bottom:20, right:120, width: 420, position: 'fixed', background: 'white', padding: 10, border: 'solid 0.5px #333' }}>
+                Article saved: {this.props.url.query.uuid}
+              </div>
+            ) : null
+          }
         </div>
 
         <style jsx>{`
@@ -87,6 +142,23 @@ class EditorPage extends React.PureComponent {
             height: calc(100vh - 70px);
             display: flex;
             flex-direction: column;
+          }
+
+          button {
+            padding: 4px 2px;
+            width: 85px;
+            color: black;
+            background: white;
+            border: solid 3px black;
+            cursor: pointer;
+            font: Helvetica, Arial, sans-sarif;
+            font-size: 14px;
+            transition: background 1s, color 1s;
+          }
+
+          button:hover {
+            background: #333;
+            color: #efefef;
           }
 
 

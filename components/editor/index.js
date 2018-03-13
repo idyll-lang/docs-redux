@@ -5,7 +5,6 @@ import compile from 'idyll-compiler'
 import GlobalStyles from '../global-styles'
 import { hashCode } from './utils'
 import styles from './styles'
-import Head from 'next/head'
 
 class LiveIdyllEditor extends React.PureComponent {
   constructor(props) {
@@ -24,6 +23,7 @@ class LiveIdyllEditor extends React.PureComponent {
   })
 
   setContent(value) {
+    // console.log('setting content ', value);
     try {
       const hash = hashCode(value)
       if (hash !== this.state.idyllHash) {
@@ -32,6 +32,17 @@ class LiveIdyllEditor extends React.PureComponent {
     } catch (e) {
       this.setState({ error: e.message })
     }
+  }
+
+  componentDidCatch(error, info) {
+    // console.log(error);
+    this.setState({ error: error.message });
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillReceiveProps() {
   }
 
   handleChange = (newContent) => {
@@ -43,18 +54,13 @@ class LiveIdyllEditor extends React.PureComponent {
   }
 
   render() {
+    const { fullscreen } = this.props;
     const { initialMarkup, ast, error, idyllHash } = this.state
-
     return (
       <div className='container'>
-        <Head>
-          <title>Idyll | Editor</title>
-          <meta charSet='utf-8' />
-          <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-          <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossOrigin="anonymous" />
-        </Head>
-        <IdyllEditArea initialContent={ initialMarkup } onChange={ this.handleChange } />
+        {
+          fullscreen ? null : <IdyllEditArea initialContent={ initialMarkup } onChange={ this.handleChange } />
+        }
         <IdyllRenderer ast={ ast } idyllHash={ idyllHash } />
         { error && this.renderError() }
         <style jsx global>{styles}</style>
@@ -66,8 +72,6 @@ class LiveIdyllEditor extends React.PureComponent {
             overflow: auto;
           }
         `}</style>
-
-
         <GlobalStyles />
       </div>
     )

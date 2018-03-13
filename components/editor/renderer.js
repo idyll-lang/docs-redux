@@ -11,17 +11,30 @@ const scopedStyles = resolveScopedStyles(
 )
 
 class Renderer extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+
   render() {
-    const { ast, idyllHash } = this.props
+    const { ast, idyllHash } = this.props;
     return (
       <div className={`renderer `}>
         <div className={`renderer-container ${scopedStyles.className}`}>
+        {
+          this.state.error ? (
+            <pre>{this.state.error.toString()}</pre>
+          ) :
           <IdyllDocument
             ast={ ast }
             components={ components }
             key={ idyllHash }
+            layout={ 'centered' }
             datasets={ {} }
           />
+        }
+
         </div>
 
         {scopedStyles.styles}
@@ -41,7 +54,6 @@ class Renderer extends React.PureComponent {
             padding-left: 6.25%;
             font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
             color: #111;
-            max-width: 1400px;
             counter-reset: sidenote-counter;
           }
         `}</style>
